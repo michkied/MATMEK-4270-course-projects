@@ -1,15 +1,22 @@
 from collections.abc import Callable
-
 import numpy as np
-
+from math import exp
 
 def mesh_function(f: Callable[[float], float], t: np.ndarray) -> np.ndarray:
-    raise NotImplementedError
-
+    ret = np.empty(t.shape)
+    for i in range(len(t)):
+        ret[i] = f(t[i])
+    return ret
 
 def func(t: float) -> float:
-    raise NotImplementedError
-
+    if t < 0:
+        return 0
+    elif t <= 3:
+        return exp(-t)
+    elif t <= 4:
+        return exp(-3*t)
+    else:
+        return 0
 
 def test_mesh_function():
     t = np.array([1, 2, 3, 4])
